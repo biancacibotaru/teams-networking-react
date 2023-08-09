@@ -28,33 +28,6 @@ function TeamRow({ id, url, promotion, members, name }) {
 export function TeamsTable(props) {
   //console.warn("TeamsTable", props);
 
-  const teams = [
-    {
-      id: "toze8j1610313009673",
-      promotion: "html",
-      members: "Nicolae Matei, HTML",
-      name: "Web Presentation",
-      url: "https://github.com/nmatei/web-intro-presentation",
-      createdBy: "nmatei"
-    },
-    {
-      id: "ezabnf1630345987541",
-      promotion: "css",
-      members: "Nicolae",
-      name: "Names",
-      url: "https://github.com/nmatei/nmatei.github.io",
-      createdBy: "nmatei"
-    },
-    {
-      id: "86mq81630347385708",
-      promotion: "js",
-      members: "Matei, Andrei",
-      name: "JS/HTML/CSS Quiz",
-      url: "https://github.com/nmatei/simple-quiz-app",
-      createdBy: "nmatei"
-    }
-  ];
-
   return (
     <form id="teamsForm" action="" method="get" className={props.loading ? "loading-mask" : ""}>
       <table id="teamsTable">
@@ -79,7 +52,7 @@ export function TeamsTable(props) {
           </tr>
         </thead>
         <tbody>
-          {teams.map(team => (
+          {props.teams.map(team => (
             <TeamRow
               key={team.id}
               id={team.id}
@@ -121,5 +94,35 @@ export function TeamsTable(props) {
 }
 
 export function TeamsTableWrapper() {
-  return <TeamsTable loading={false} />;
+  const teams = [
+    {
+      id: "toze8j1610313009673",
+      promotion: "html",
+      members: "Nicolae Matei, HTML",
+      name: "Web Presentation",
+      url: "https://github.com/nmatei/web-intro-presentation",
+      createdBy: "nmatei"
+    },
+    {
+      id: "ezabnf1630345987541",
+      promotion: "css",
+      members: "Nicolae",
+      name: "Names",
+      url: "https://github.com/nmatei/nmatei.github.io",
+      createdBy: "nmatei"
+    },
+    {
+      id: "86mq81630347385708",
+      promotion: "js",
+      members: "Matei, Andrei",
+      name: "JS/HTML/CSS Quiz",
+      url: "https://github.com/nmatei/simple-quiz-app",
+      createdBy: "nmatei"
+    }
+  ];
+
+  //return <TeamsTable loading={true} teams={[]} />;
+  // return <TeamsTable loading={false} teams={[]} />;
+  //return <TeamsTable loading={true} teams={teams} />;
+  return <TeamsTable loading={false} teams={teams} />;
 }
