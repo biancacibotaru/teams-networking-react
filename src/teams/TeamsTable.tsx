@@ -1,7 +1,6 @@
 import React from "react";
 import { deleteTeamRequest, loadTeamsRequest, updateTeamRequest } from "./middleware";
-
-type Team = { id: string; url: string; promotion: string; members: string; name: string };
+import { Team } from "./models";
 
 type RowProps = { team: Team };
 type RowActions = {
