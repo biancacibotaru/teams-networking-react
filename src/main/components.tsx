@@ -1,4 +1,4 @@
-import { TeamsTables } from "../teams/TeamsTable";
+import { TeamsTableWrapper } from "../teams/TeamsTable";
 
 export function ContentWrapper() {
   return (
@@ -10,9 +10,8 @@ export function ContentWrapper() {
           <label htmlFor="searchTeams">🔎</label>
         </div>
       </div>
-      <TeamsTables loading={false} />
-      <br />
-      <TeamsTables loading={true} />
+
+      <TeamsTableWrapper />
     </div>
   );
 }
