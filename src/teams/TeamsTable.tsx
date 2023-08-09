@@ -1,3 +1,6 @@
+import React from "react";
+import { loadTeamsRequest } from "./middleware";
+
 type Team = { id: string; url: string; promotion: string; members: string; name: string };
 type Props = { loading: boolean; teams: Team[] };
 
@@ -96,11 +99,27 @@ export function TeamsTable(props: Props) {
   );
 }
 
-export function TeamsTableWrapper() {
-  const teams = [];
+type WrapperProps = {};
+type State = { loading: boolean };
 
-  //return <TeamsTable loading={true} teams={[]} />;
-  // return <TeamsTable loading={false} teams={[]} />;
-  //return <TeamsTable loading={true} teams={teams} />;
-  return <TeamsTable loading={false} teams={teams} />;
+export class TeamsTableWrapper extends React.Component<WrapperProps, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
+  componentDidMount(): void {
+    loadTeamsRequest().then(t => {
+      console.info("loaded", t);
+      this.setState({ loading: false });
+    });
+  }
+
+  render() {
+    let teams = [];
+
+    return <TeamsTable loading={this.state.loading} teams={teams} />;
+  }
 }
