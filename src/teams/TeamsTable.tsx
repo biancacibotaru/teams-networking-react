@@ -1,4 +1,7 @@
-function TeamRow({ id, url, promotion, members, name }) {
+type Team = { id: string; url: string; promotion: string; members: string; name: string };
+type Props = { loading: boolean; teams: Team[] };
+
+function TeamRow({ id, url, promotion, members, name }: Team) {
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return (
     <tr>
@@ -24,8 +27,6 @@ function TeamRow({ id, url, promotion, members, name }) {
     </tr>
   );
 }
-
-type Props = { loading: boolean; teams: any[] };
 
 export function TeamsTable(props: Props) {
   //console.warn("TeamsTable", props);
