@@ -3,9 +3,12 @@ import { deleteTeamRequest, loadTeamsRequest } from "./middleware";
 
 type Team = { id: string; url: string; promotion: string; members: string; name: string };
 
-type RowProps = { team: Team; deleteTeam(id: string): void };
+type RowProps = { team: Team };
+type RowActions = {
+  deleteTeam(id: string): void;
+};
 
-function TeamRow(props: RowProps) {
+function TeamRow(props: RowProps & RowActions) {
   const { id, url, promotion, members, name } = props.team;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return (
@@ -39,9 +42,10 @@ function TeamRow(props: RowProps) {
   );
 }
 
-type Props = { loading: boolean; teams: Team[]; deleteTeam(id: string): void };
+type Props = { loading: boolean; teams: Team[] };
+type Actions = { deleteTeam(id: string): void };
 
-export function TeamsTable(props: Props) {
+export function TeamsTable(props: Props & Actions) {
   //console.warn("TeamsTable", props);
 
   return (
