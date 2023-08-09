@@ -25,7 +25,9 @@ function TeamRow({ id, url, promotion, members, name }) {
   );
 }
 
-export function TeamsTable(props) {
+type Props = { loading: boolean; teams: any[] };
+
+export function TeamsTable(props: Props) {
   //console.warn("TeamsTable", props);
 
   return (
@@ -94,32 +96,7 @@ export function TeamsTable(props) {
 }
 
 export function TeamsTableWrapper() {
-  const teams = [
-    {
-      id: "toze8j1610313009673",
-      promotion: "html",
-      members: "Nicolae Matei, HTML",
-      name: "Web Presentation",
-      url: "https://github.com/nmatei/web-intro-presentation",
-      createdBy: "nmatei"
-    },
-    {
-      id: "ezabnf1630345987541",
-      promotion: "css",
-      members: "Nicolae",
-      name: "Names",
-      url: "https://github.com/nmatei/nmatei.github.io",
-      createdBy: "nmatei"
-    },
-    {
-      id: "86mq81630347385708",
-      promotion: "js",
-      members: "Matei, Andrei",
-      name: "JS/HTML/CSS Quiz",
-      url: "https://github.com/nmatei/simple-quiz-app",
-      createdBy: "nmatei"
-    }
-  ];
+  const teams = [];
 
   //return <TeamsTable loading={true} teams={[]} />;
   // return <TeamsTable loading={false} teams={[]} />;
