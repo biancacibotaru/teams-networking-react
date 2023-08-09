@@ -6,6 +6,7 @@ type Team = { id: string; url: string; promotion: string; members: string; name:
 type RowProps = { team: Team };
 type RowActions = {
   deleteTeam(id: string): void;
+  startEdit(team: Team): void;
 };
 
 function TeamRow(props: RowProps & RowActions) {
@@ -25,7 +26,13 @@ function TeamRow(props: RowProps & RowActions) {
         </a>
       </td>
       <td>
-        <button type="button" className="action-btn edit-btn">
+        <button
+          type="button"
+          className="action-btn edit-btn"
+          onClick={() => {
+            props.startEdit(props.team);
+          }}
+        >
           &#9998;
         </button>
         <button
@@ -43,14 +50,20 @@ function TeamRow(props: RowProps & RowActions) {
 }
 
 type Props = { loading: boolean; teams: Team[] };
-type Actions = { deleteTeam(id: string): void };
+type Actions = { deleteTeam(id: string): void; startEdit(team: Team): void; save(): void };
 
 export function TeamsTable(props: Props & Actions) {
-  //console.warn("TeamsTable", props);
-
   return (
-    <form id="teamsForm" action="" method="get" className={props.loading ? "loading-mask" : ""}>
-      <table id="teamsTable">
+    <form
+      action=""
+      method="get"
+      className={props.loading ? "loading-mask" : ""}
+      onSubmit={e => {
+        e.preventDefault();
+        props.save();
+      }}
+    >
+      <table className="table-view">
         <colgroup>
           <col className="select-all-columns" />
           <col style={{ width: "20%" }} />
@@ -79,6 +92,7 @@ export function TeamsTable(props: Props & Actions) {
               deleteTeam={function (id) {
                 props.deleteTeam(id);
               }}
+              startEdit={props.startEdit}
             />
           ))}
         </tbody>
@@ -146,6 +160,12 @@ export class TeamsTableWrapper extends React.Component<WrapperProps, State> {
           if (status.success) {
             this.loadTeams();
           }
+        }}
+        startEdit={team => {
+          console.info("start edit", team);
+        }}
+        save={() => {
+          console.warn("save");
         }}
       />
     );
