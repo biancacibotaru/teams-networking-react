@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteTeamRequest, loadTeamsRequest, updateTeamRequest } from "./middleware";
+import { createTeamRequest, deleteTeamRequest, loadTeamsRequest, updateTeamRequest } from "./middleware";
 import { Team } from "./models";
 
 type RowProps = { team: Team };
@@ -189,16 +189,56 @@ export function TeamsTable(props: Props & Actions) {
           <tr>
             <td></td>
             <td>
-              <input type="text" name="promotion" placeholder="Enter promotion" required disabled={!!props.team.id} />
+              <input
+                type="text"
+                name="promotion"
+                placeholder="Enter promotion"
+                required
+                value={props.team.id ? "" : props.team.promotion}
+                disabled={!!props.team.id}
+                onChange={e => {
+                  props.inputChange("promotion", e.target.value);
+                }}
+              />
             </td>
             <td>
-              <input type="text" name="members" placeholder="Enter members" required disabled={!!props.team.id} />
+              <input
+                type="text"
+                name="members"
+                placeholder="Enter members"
+                required
+                value={props.team.id ? "" : props.team.members}
+                disabled={!!props.team.id}
+                onChange={e => {
+                  props.inputChange("members", e.target.value);
+                }}
+              />
             </td>
             <td>
-              <input type="text" name="name" placeholder="Enter name" required disabled={!!props.team.id} />
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                required
+                value={props.team.id ? "" : props.team.name}
+                disabled={!!props.team.id}
+                onChange={e => {
+                  props.inputChange("name", e.target.value);
+                }}
+              />
             </td>
             <td>
-              <input type="text" name="url" placeholder="Enter url" required disabled={!!props.team.id} />
+              <input
+                type="text"
+                name="url"
+                placeholder="Enter url"
+                required
+                value={props.team.id ? "" : props.team.url}
+                disabled={!!props.team.id}
+                onChange={e => {
+                  props.inputChange("url", e.target.value);
+                }}
+              />
             </td>
             <td>
               <button type="submit" className="action-btn" title="Add" disabled={!!props.team.id}>
@@ -251,6 +291,23 @@ export class TeamsTableWrapper extends React.Component<WrapperProps, State> {
     });
   }
 
+  async save() {
+    const team = this.state.team;
+    this.setState({ loading: true });
+    let done: boolean;
+    if (team.id) {
+      const { success } = await updateTeamRequest(team);
+      done = success;
+    } else {
+      const { id, success } = await createTeamRequest(team);
+      done = success;
+    }
+    if (done) {
+      await this.loadTeams();
+      this.setState({ team: getEmptyTeam() });
+    }
+  }
+
   render() {
     return (
       <TeamsTable
@@ -278,14 +335,8 @@ export class TeamsTableWrapper extends React.Component<WrapperProps, State> {
             };
           });
         }}
-        save={async () => {
-          console.warn("save", this.state.team);
-          this.setState({ loading: true });
-          const { success } = await updateTeamRequest(this.state.team);
-          if (success) {
-            await this.loadTeams();
-            this.setState({ team: getEmptyTeam() });
-          }
+        save={() => {
+          this.save();
         }}
         reset={() => {
           this.setState({ team: getEmptyTeam() });
