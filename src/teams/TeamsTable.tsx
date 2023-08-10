@@ -308,32 +308,39 @@ export class TeamsTableWrapper extends React.Component<WrapperProps, State> {
     }
   }
 
+  async deleteTeam(id: string) {
+    this.setState({ loading: true });
+    const status = await deleteTeamRequest(id);
+    if (status.success) {
+      this.loadTeams();
+    }
+  }
+
+  inputChange(name: keyof Team, value: string) {
+    console.info("input change %o", value);
+    this.setState(state => {
+      const team = { ...state.team };
+      team[name] = value;
+      return {
+        team
+      };
+    });
+  }
+
   render() {
     return (
       <TeamsTable
         loading={this.state.loading}
         teams={this.state.teams}
         team={this.state.team}
-        deleteTeam={async id => {
-          this.setState({ loading: true });
-          const status = await deleteTeamRequest(id);
-          if (status.success) {
-            this.loadTeams();
-          }
+        deleteTeam={id => {
+          this.deleteTeam(id);
         }}
         startEdit={team => {
-          console.info("start edit", team);
           this.setState({ team });
         }}
         inputChange={(name, value) => {
-          console.info("input change %o", value);
-          this.setState(state => {
-            const team = { ...state.team };
-            team[name] = value;
-            return {
-              team
-            };
-          });
+          this.inputChange(name, value);
         }}
         save={() => {
           this.save();
