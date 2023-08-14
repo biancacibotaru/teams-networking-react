@@ -34,30 +34,11 @@ export function TodosPage() {
   return <div>Todos...</div>;
 }
 
-export function ContentWrapper() {
-  //console.warn("wrapper.render %o", search);
-  const activePage: Page = "teams" as Page;
-
-  // {activePage === "home" ? <HomePage /> : null}
-  // {activePage === "todos" && <TodosPage />}
-
-  const page = getActivePage(activePage);
-
-  // switch (activePage) {
-  //   case "home":
-  //     page = <HomePage />;
-  //     break;
-  //   case "todos":
-  //     page = <TodosPage />;
-  //     break;
-  //   case "teams":
-  //     page = <TeamsPage />;
-  //     break;
-  //   default: {
-  //     page = <HomePage />;
-  //     break;
-  //   }
-  // }
+type Props = {
+  activePage: Page;
+};
+export function ContentWrapper(props: Props) {
+  const page = getActivePage(props.activePage);
 
   return <div id="main">{page}</div>;
 }
