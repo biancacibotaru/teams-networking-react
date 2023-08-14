@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //import logo from "./logo.svg";
 import "./App.css";
 import "./style.css";
@@ -8,11 +8,18 @@ import { ContentWrapper } from "./main/components";
 import { Page } from "./main/models";
 
 function App() {
-  const activePage: Page = "home";
+  const [active, setActive] = useState<Page>("home");
+
   return (
     <>
-      <AppHeader activePage={activePage} />
-      <ContentWrapper activePage={activePage} />
+      <AppHeader
+        activePage={active}
+        setActive={newActive => {
+          console.warn("active", newActive);
+          setActive(newActive);
+        }}
+      />
+      <ContentWrapper activePage={active} />
       <AppFooter />
     </>
   );

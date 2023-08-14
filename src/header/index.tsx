@@ -6,7 +6,10 @@ import { Page } from "../main/models";
 type Props = {
   activePage: Page;
 };
-export default function AppHeader(props: Props) {
+type Actions = {
+  setActive(active: Page): void;
+};
+export default function AppHeader(props: Props & Actions) {
   return (
     <header>
       <div id="header-wrapper">
@@ -19,7 +22,7 @@ export default function AppHeader(props: Props) {
         </div>
       </div>
 
-      <MainMenu activePage={props.activePage} />
+      <MainMenu activePage={props.activePage} setActive={props.setActive} />
     </header>
   );
 }
