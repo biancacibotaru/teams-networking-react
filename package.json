@@ -19,6 +19,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "git add docs/*",
+    "deploy": "npm run build && git commit -m \"[build] new docs\" && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
