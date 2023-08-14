@@ -1,1 +1,1 @@
-export type Team = { id: string; url: string; promotion: string; members: string; name: string };
+export type Team = { id: string; url: string; promotion: string; members: string; name: string; createdBy?: string };
