@@ -1,0 +1,26 @@
+#top-menu-bar {
+  margin: 0;
+  padding-inline-start: 0;
+  text-align: center;
+  background-color: #057988;
+  color: #fff;
+}
+#top-menu-bar li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+#top-menu-bar a {
+  text-decoration: none;
+  padding: 5px 15px;
+  color: #fff;
+  display: inline-block;
+}
+#top-menu-bar a:visited {
+  color: #fff;
+}
+#top-menu-bar a.active,
+#top-menu-bar a:hover {
+  color: white;
+  background-color: #497bad;
+}
