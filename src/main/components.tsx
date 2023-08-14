@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { TeamsTableWrapper } from "../teams/TeamsTable";
 
 export function ContentWrapper() {
-  let search = "Nicolae";
+  //let search = "";
+  const [search, setSearch] = useState("");
+
+  //console.warn("wrapper.render %o", search);
+
   return (
     <div id="main">
       <div className="tbar">
@@ -14,7 +19,8 @@ export function ContentWrapper() {
             placeholder="Search..."
             onChange={e => {
               console.info("search", e.target.value);
-              search = e.target.value;
+              //search = e.target.value;
+              setSearch(e.target.value);
             }}
           />
           <label htmlFor="searchTeams">🔎</label>
