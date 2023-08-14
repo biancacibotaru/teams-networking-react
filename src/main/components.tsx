@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TeamsTableWrapper } from "../teams/TeamsTable";
 import { Page } from "./models";
+import { TodosApp } from "../todos/components";
 
 export function TeamsPage() {
   const [search, setSearch] = useState("");
@@ -30,10 +31,6 @@ export function HomePage() {
   return <div>Home...</div>;
 }
 
-export function TodosPage() {
-  return <div>Todos...</div>;
-}
-
 type Props = {
   activePage: Page;
 };
@@ -48,7 +45,7 @@ function getActivePage(activePage: Page) {
     case "home":
       return <HomePage />;
     case "todos":
-      return <TodosPage />;
+      return <TodosApp />;
     case "teams":
       return <TeamsPage />;
     default: {
